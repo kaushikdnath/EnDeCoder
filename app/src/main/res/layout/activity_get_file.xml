@@ -12,7 +12,7 @@
         android:layout_height="505dp"
         android:orientation="vertical"
         android:weightSum="1"
-        tools:layout_editor_absoluteX="4dp"
+        tools:layout_editor_absoluteX="2dp"
         tools:layout_editor_absoluteY="3dp">
 
         <ImageView
@@ -26,8 +26,8 @@
 
 
         <!--<TableLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content">-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content">-->
 
         <!--</TableLayout>-->
         <Button
@@ -45,6 +45,7 @@
                 android:layout_width="180dp"
                 android:layout_height="wrap_content"
                 android:text="Encode" />
+
             <Button
                 android:id="@+id/decodeBtn"
                 android:layout_width="175dp"
@@ -52,17 +53,30 @@
                 android:text="Decode" />
         </TableRow>
 
-        <EditText
-            android:id="@+id/encodedText"
+        <TableRow
             android:layout_width="match_parent"
-            android:layout_height="75dp"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:singleLine="false"
-            android:text="Encoded" />
+            android:layout_height="wrap_content">
 
 
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="160dp"
+                android:layout_height="64dp"
+                android:layout_weight="0.65"
+                android:textSize="24sp"
+                tools:text="Number of files in queue" />
 
+
+            <TextView
+                android:id="@+id/fileCount"
+                android:layout_width="181dp"
+                android:layout_height="64dp"
+                android:layout_weight="0.65"
+                android:text="0"
+                android:textAlignment="center"
+                android:textSize="24sp" />
+
+        </TableRow>
 
     </LinearLayout>
 

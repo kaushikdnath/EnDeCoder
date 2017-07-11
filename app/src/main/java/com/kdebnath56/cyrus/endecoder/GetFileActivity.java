@@ -19,6 +19,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -28,6 +29,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 public class GetFileActivity extends AppCompatActivity {
 
@@ -36,9 +39,9 @@ public class GetFileActivity extends AppCompatActivity {
     private Button saveBtn;
     private Button encodeBtn;
     private Button decodeBtn;
-    private EditText encodedText;
+    private TextView fileCount;
     private Bitmap selectedImg;
-    private String encodedImg;
+    private List<String> encodedImgs=new LinkedList<String>();
     private Context thisActivity=this;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +50,8 @@ public class GetFileActivity extends AppCompatActivity {
 
         saveBtn=(Button) findViewById(R.id.saveBtn);
         encodeBtn=(Button)findViewById(R.id.encodeBtn);
-        encodedText=(EditText) findViewById(R.id.encodedText);
+        decodeBtn=(Button)findViewById(R.id.decodeBtn);
+        fileCount=(TextView) findViewById(R.id.fileCount);
         imgView=(ImageView) findViewById(R.id.imageView);
         imgView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,16 +95,20 @@ public class GetFileActivity extends AppCompatActivity {
         encodeBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                encodedImg=encodeToBase64(selectedImg,Bitmap.CompressFormat.JPEG, 100);
-                encodedText.setText(encodedImg);
+                encodedImgs.add(encodeToBase64(selectedImg,Bitmap.CompressFormat.JPEG, 100));
+                fileCount.setText(encodedImgs.size()+"");
             }
         });
-//        decodeBtn.setOnClickListener(new View.OnClickListener(){
-//            @Override
-//            public void onClick(View view) {
-//                imgView.setImageBitmap(decodeBase64(encodedText.getText().toString()));
-//            }
-//        });
+        decodeBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                if(encodedImgs.size()>0){
+                    imgView.setImageBitmap(decodeBase64(encodedImgs.get(0)));
+                    encodedImgs.remove(0);
+                    fileCount.setText(encodedImgs.size()+"");
+                }
+            }
+        });
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
